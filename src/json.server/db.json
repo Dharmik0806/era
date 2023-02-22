@@ -1,0 +1,37 @@
+{
+  "MedicineCity": [
+    {
+      "name": "abc",
+      "price": 123,
+      "qua": 11,
+      "date": 123,
+      "id": 1
+    },
+    {
+      "name": "123",
+      "price": 123,
+      "qua": 2,
+      "date": 1232,
+      "id": 2
+    },
+    {
+      "name": "qwe",
+      "price": 22,
+      "qua": 1,
+      "date": 123,
+      "id": 3
+    }
+  ],
+  "Watch": [
+    {
+      "name": "aa",
+      "price": "123",
+      "color": "red",
+      "qua": "1",
+      "id": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
