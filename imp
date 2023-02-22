@@ -1,0 +1,17 @@
+React Introduction
+state
+props
+components (class, function)
+component lifecycle methods
+routing (public, private)
+validation (formik, yup)
+reactstrap
+mui
+redux
+redux-thunk (middleware)
+redux-saga
+redux-persist
+context api
+crud with search and sort
+local storage
+conditional rendering
