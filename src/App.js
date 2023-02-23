@@ -48,7 +48,7 @@ function App() {
       {/* <About /> */}
 
       <Provider store={store}>
-        <LayoutEra>
+        <LayoutEra> 
           <Switch>
             <Route exact path={"/MenEra"} component={MenEra} />
             <Route exact path={"/WomenEra"} component={WomenEra} />
