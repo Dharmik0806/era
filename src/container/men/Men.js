@@ -1,10 +1,10 @@
 import { Search } from '@mui/icons-material';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import ListEra from '../../component/list/ListEra';
 
 
 function Men(props) {
-
 
     const [data, setData] = useState([]);
     const [fdata, setFdata] = useState()
@@ -17,6 +17,8 @@ function Men(props) {
         if (localData !== null) {
             setData(localData);
         }
+
+       
     }, []);
 
     console.log("******Men********");

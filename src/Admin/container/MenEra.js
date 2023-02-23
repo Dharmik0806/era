@@ -14,9 +14,15 @@ import { DataGrid } from '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { getMenData, handlePostMenData } from '../../redux/action/men.action';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 function MenEra(props) {
+
+    const dispatch = useDispatch()
+    const MenFinData = useSelector(state => state.men)
+    console.log(MenFinData);
 
     const [open, setOpen] = React.useState(false);
     const [menData, setMenData] = useState([]);
@@ -46,11 +52,13 @@ function MenEra(props) {
 
 
     useEffect(() => {
-        let localData = JSON.parse(localStorage.getItem("men"));
+        // let localData = JSON.parse(localStorage.getItem("men"));
 
-        if (localData !== null) {
-            setMenData(localData);
-        }
+        // if (localData !== null) {
+        //     setMenData(localData);
+        // }
+
+        dispatch(getMenData())
 
     }, []);
 
@@ -58,7 +66,7 @@ function MenEra(props) {
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'name', headerName: 'Name', width: 130 },
         { field: 'price', headerName: 'Price', width: 130 },
-       
+        { field: 'img', headerName: 'Image', width: 130 },
         {
             field: "Action", headerName: "Action", width: 130,
             renderCell: (params) => {
@@ -77,22 +85,24 @@ function MenEra(props) {
     ];
 
     const doctorData = (values) => {
-        let localData = JSON.parse(localStorage.getItem("men"));
-        console.log(localData);
+        // let localData = JSON.parse(localStorage.getItem("men"));
+        // console.log(localData);
 
-        let did = Math.round(Math.random() * 1000);
-        let sDid = { ...values, id: did }
+        // let did = Math.round(Math.random() * 1000);
+        // let sDid = { ...values, id: did }
 
-        if (localData !== null) {
-            localData.push(sDid)
-            localStorage.setItem("men", JSON.stringify(localData));
-            setMenData(localData)
-        } else {
-            setMenData([sDid])
-            localStorage.setItem("men", JSON.stringify([sDid]));
-        }
-        console.log(menData);
+        // if (localData !== null) {
+        //     localData.push(sDid)
+        //     localStorage.setItem("men", JSON.stringify(localData));
+        //     setMenData(localData)
+        // } else {
+        //     setMenData([sDid])
+        //     localStorage.setItem("men", JSON.stringify([sDid]));
+        // }
+        // console.log(menData);
         // menObj.resetForm()
+
+        dispatch(handlePostMenData(values))
 
     }
 
@@ -124,19 +134,19 @@ function MenEra(props) {
         console.log(".. local data in update");
         console.log(localData);
 
-       let updateDdata = localData.map((s) => {
+        let updateDdata = localData.map((s) => {
 
-            if(s.id === NupData.id) {
+            if (s.id === NupData.id) {
                 // console.log("s id");
                 // console.log(s.id);
                 return NupData;
-            }else{
+            } else {
                 return s;
             }
         })
 
         localStorage.setItem("men", JSON.stringify(updateDdata))
-       
+
         // console.log(localData);
         menData(updateDdata)
         setEid("");
@@ -155,7 +165,7 @@ function MenEra(props) {
         initialValues: {
             name: "",
             price: "",
-            img : ""
+            img: ""
         },
 
         validationSchema: schema,
@@ -259,7 +269,7 @@ function MenEra(props) {
             {/* ++++++++++++++++++ TABLE GRID ++++++++++++++++ */}
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={menData}
+                    rows={MenFinData.menData}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}

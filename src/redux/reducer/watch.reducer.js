@@ -7,8 +7,8 @@ const initialstate = {
 }
 
 export const WatchReducer = (state = initialstate, action) => {
-    console.log("reducer");
-    console.log(action, state.watch);
+    // console.log("reducer");
+    // console.log(action, state.watch);
 
     switch (action.type) {
         case ActionType.WATCH_GET:

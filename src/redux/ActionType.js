@@ -14,3 +14,8 @@ export const WATCH_PUT = "WATCH_PUT"
 export const WATCH_DELETE = "WATCH_DELETE"
 export const WATCH_LOADING = "WATCH_LOADING"
 export const WATCH_ERRORE = "WATCH_ERRORE"
+
+export const MEN_GET_DATA = "MEN_GET_DATA"
+export const MEN_POST_DATA = "MEN_POST_DATA"
+export const MEN_PUT_DATA = "MEN_PUT_DATA"
+export const MEN_DELETE_DATA = "MEN_PUT_DATA"

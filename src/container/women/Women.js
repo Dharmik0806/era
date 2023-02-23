@@ -3,71 +3,85 @@ import ListEra from '../../component/list/ListEra';
 // import Slider from 'react-slick';
 
 function Women(props) {
-    const [data, setData] = useState([])
-    const [sdata, setSdata] = useState();
-    const [mData, setMdata] = useState();
+    const [data, setData] = useState([]);
+    const [fdata, setFdata] = useState()
+    const [sdata, setSdata] = useState()
     const [sort, setSort] = useState()
-
 
     useEffect(() => {
         let localData = JSON.parse(localStorage.getItem("women"));
-        console.log("Women 9");
         console.log(localData);
-
         if (localData !== null) {
-            setData(localData)
+            setData(localData);
         }
     }, []);
+
+    console.log("******women********");
+    console.log(JSON.parse(localStorage.getItem("women")));
 
     // ************************************SEARCH ***************************************
 
     const handleSearch = (value) => {
         console.log(value);
-        if (value !== "") {
-            let fData = data.filter((a) =>
-            (
-                a.name.toLowerCase().includes(value.toLowerCase()) ||
-                a.price.toString().includes(value)
-            )
-            )
-            setSdata(fData)
-            console.log(fData);
-        } else {
-            setSdata()
-            handleSort(sort, "yes");
-        }
-    }
 
+        if (value !== "") {
+            let filteredData = data.filter((m) =>
+            (
+                m.name.toLowerCase().includes(value.toLowerCase())||
+                m.price.toString().includes(value) 
+            )
+            );
+            setFdata(filteredData)
+        } else {
+            setFdata()
+            handleSort(sort, "women");       //3
+        }
+
+    }
 
     // *****************************************Sort*****************************************
 
-    const handleSort = (sValue) => {
-        console.log(sValue);
+    const handleSort = (val, empty = "") => {
+        console.log(val);
+        setSort(val);
 
-        if (sValue !== "") {
-            let sortData = data.sort((a, b) => {
-                if (sValue === "hl") {
+        // // step 2
+        // let fData = fdata ?  fdata :data ;     //1
+        let fData = fdata && empty === "" ? fdata : data;     //4
+
+
+        if (val !== "") {
+
+            let fsData = fData.sort((a, b) => {    //2
+                if (val === "hl") {
                     return b.price - a.price;
-                } else if (sValue === "lh") {
+                } else if (val === "lh") {
                     return a.price - b.price;
-                } else if (sValue === "az") {
-                    return a.name.localeCompare(b.name);
-                } else if (sValue === "za") {
+                } else if (val === "az") {
+                    return a.name.localeCompare(b.name)
+                } else if (val === "za") {
                     return b.name.localeCompare(a.name)
+                } else if (val === "dlh") {
+                    return a.date > b.date ? 1 : -1
+                } else if (val === "dhl") {
+                    return b.date > a.date ? 1 : -1
                 }
             })
-            console.log(sortData);
+            console.log(fsData);
+            setSdata(fsData);
+
         } else {
-            setMdata()
+            setSdata();
         }
     }
-    
 
-    let finalData = sdata ? sdata : data;
+    // let finalData = sdata ? sdata :  data;
+    // let finalData = sdata ? sdata :  mData ? mData : data;
+    let finalData = fdata ? fdata : sdata ? sdata : data;
     return (
         <>
 
-            {/* ***** Women Area Starts ***** */}
+            {/* ***** women Area Starts ***** */}
             <div className='mainContainer'>
 
                 <section className="section" id="women">

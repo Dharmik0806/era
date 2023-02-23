@@ -28,7 +28,7 @@ function App() {
   const store = configerStore()
   return (
     <>
-      <Header />
+      {/* <Header />
       <Switch>
         <PublicRoute exact path="/" component={Home} />
         <PublicRoute exact path="/men" component={Men} />
@@ -38,7 +38,7 @@ function App() {
         <PublicRoute exact path="/Signin" restricted={true} component={Signin} />
         <PublicRoute exact path="/About" component={AboutUs} />
       </Switch>
-      <Footer />
+      <Footer /> */}
 
       {/* <Header /> */}
       {/* <Home /> */}
@@ -47,7 +47,7 @@ function App() {
       {/* <Footer /> */}
       {/* <About /> */}
 
-      {/* <Provider store={store}>
+      <Provider store={store}>
         <LayoutEra>
           <Switch>
             <Route exact path={"/MenEra"} component={MenEra} />
@@ -58,7 +58,7 @@ function App() {
             <Route exact path={"/watch"} component={Watch} />
           </Switch>
         </LayoutEra>
-      </Provider> */}
+      </Provider>
 
       {/* ok 0702_23 */}
     </>

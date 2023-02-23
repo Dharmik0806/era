@@ -31,6 +31,20 @@
       "id": 1
     }
   ],
+  "MenEra": [
+    {
+      "name": "kkl",
+      "price": "332",
+      "img": "2",
+      "id": 1123
+    },
+    {
+      "name": "asd",
+      "price": 123,
+      "img": 4,
+      "id": 1124
+    }
+  ],
   "profile": {
     "name": "typicode"
   }
