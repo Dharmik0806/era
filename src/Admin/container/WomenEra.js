@@ -14,6 +14,9 @@ import { DataGrid } from '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteWomenData, getWomenData, postWomenData, putWomenData } from '../../redux/action/women.action';
+import Loading from '../component/loding/Loading';
 
 
 function WomenEra(props) {
@@ -22,6 +25,11 @@ function WomenEra(props) {
     const [womenData, setWomenData] = useState([]);
     const [did, setDid] = useState("");
     const [eid, setEid] = useState("");
+
+    const dispatch = useDispatch()
+    const finWomenData = useSelector(state => state.women)
+
+    // console.log(finWomenData);
 
     //    Delet Dialog Box
     const [dopen, setdOpen] = React.useState(false);
@@ -46,11 +54,13 @@ function WomenEra(props) {
 
 
     useEffect(() => {
-        let localData = JSON.parse(localStorage.getItem("women"));
+        // let localData = JSON.parse(localStorage.getItem("women"));
 
-        if (localData !== null) {
-            setWomenData(localData);
-        }
+        // if (localData !== null) {
+        //     setWomenData(localData);
+        // }
+
+        dispatch(getWomenData())
 
     }, []);
 
@@ -58,7 +68,7 @@ function WomenEra(props) {
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'name', headerName: 'Name', width: 130 },
         { field: 'price', headerName: 'Price', width: 130 },
-       
+
         {
             field: "Action", headerName: "Action", width: 130,
             renderCell: (params) => {
@@ -77,35 +87,16 @@ function WomenEra(props) {
     ];
 
     const doctorData = (values) => {
-        let localData = JSON.parse(localStorage.getItem("women"));
-        console.log(localData);
 
-        let did = Math.round(Math.random() * 1000);
-        let sDid = { ...values, id: did }
-
-        if (localData !== null) {
-            localData.push(sDid)
-            localStorage.setItem("women", JSON.stringify(localData));
-            setWomenData(localData)
-        } else {
-            setWomenData([sDid])
-            localStorage.setItem("women", JSON.stringify([sDid]));
-        }
-        console.log(womenData);
-        // menObj.resetForm()
+        dispatch(postWomenData(values))
+        menObj.resetForm()
 
     }
 
     const handleDelet = () => {
-        console.log("delet id");
 
-        let localData = JSON.parse(localStorage.getItem("women"));
-        let dData = localData.filter((l) => l.id !== did);
-
-        localStorage.setItem("women", JSON.stringify(dData));
-        setWomenData(dData);
+        dispatch(deleteWomenData(did))
         setDid();
-
         setdOpen(false);
     }
 
@@ -116,29 +107,9 @@ function WomenEra(props) {
         setEid(upValue);
     }
 
-    const handleUpdateData = (NupData) => {
-        console.log(NupData);
-        console.log("update okok");
+    const handleUpdateData = (values) => {
 
-        let localData = JSON.parse(localStorage.getItem("women"));
-        console.log(".. local data in update");
-        console.log(localData);
-
-       let updateDdata = localData.map((s) => {
-
-            if(s.id === NupData.id) {
-                // console.log("s id");
-                // console.log(s.id);
-                return NupData;
-            }else{
-                return s;
-            }
-        })
-
-        localStorage.setItem("women", JSON.stringify(updateDdata))
-       
-        // console.log(localData);
-        womenData(updateDdata)
+        dispatch(putWomenData(values))
         setEid("");
         setValues();
         menObj.resetForm()
@@ -155,7 +126,7 @@ function WomenEra(props) {
         initialValues: {
             name: "",
             price: "",
-            img : ""
+            img: ""
         },
 
         validationSchema: schema,
@@ -256,19 +227,23 @@ function WomenEra(props) {
                 </Dialog>
             </div>
             {/* ++++++++++++++++++ TABLE GRID ++++++++++++++++ */}
-            <div style={{ height: 400, width: '100%' }}>
-                <DataGrid
-                    rows={womenData}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
-                    checkboxSelection
-                />
-            </div>
+
+            {
+                finWomenData.isLoading ? <Loading /> :
+                    <div style={{ height: 400, width: '100%' }}>
+                        <DataGrid
+                            rows={finWomenData.womenData}
+                            columns={columns}
+                            pageSize={5}
+                            rowsPerPageOptions={[5]}
+                            checkboxSelection
+                        />
+                    </div>
+            }
 
             {/* +++++++++++++++++ DELET DAILOG BOX +++++++++++++ */}
             <div>
-               
+
                 <Dialog
                     open={dopen}
                     onClose={handledClose}

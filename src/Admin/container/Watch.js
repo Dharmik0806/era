@@ -124,8 +124,8 @@ function Watch(props) {
         console.log(did);
 
         dispatch(deletWatch(did))
-        setOpen(false)
-    }
+        handledClose()
+        }
 
     const watchObj = useFormik({
         initialValues: {
@@ -247,7 +247,7 @@ function Watch(props) {
                 watchData.isLoding ? <Loading /> :
                 watchData.errore ? <Errore errMsg={watchData.errore} /> :
 
-                <div>
+                <div style={{ height: 400, width: '80%', margin: '0px auto 0px auto' }}>
                     <DataGrid
                         rows={watchData.watch}
                         columns={columns}
@@ -277,7 +277,8 @@ function Watch(props) {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handledClose}>Disagree</Button>
-                        <Button onClick={() => { handaleDelete(did) }} autoFocus>
+                        <Button onClick={() => { handaleDelete(did) }} 
+                    >
                             Agree
                         </Button>
                     </DialogActions>

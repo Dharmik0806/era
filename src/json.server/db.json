@@ -24,25 +24,27 @@
   ],
   "Watch": [
     {
-      "name": "aa",
+      "name": "asd",
       "price": "123",
       "color": "red",
-      "qua": "1",
+      "qua": "123",
       "id": 1
     }
   ],
   "MenEra": [
     {
-      "name": "kkl",
-      "price": "332",
-      "img": "2",
-      "id": 1123
-    },
+      "name": "WERwerw",
+      "price": 345345,
+      "img": 3,
+      "id": 2
+    }
+  ],
+  "WomenEra": [
     {
-      "name": "asd",
-      "price": 123,
-      "img": 4,
-      "id": 1124
+      "name": "wer",
+      "price": 3453,
+      "img": 44,
+      "id": 21
     }
   ],
   "profile": {

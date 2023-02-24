@@ -14,8 +14,9 @@ import { DataGrid } from '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { getMenData, handlePostMenData } from '../../redux/action/men.action';
+import { getMenData, handleDeletMenData, handlePostMenData, putMenData } from '../../redux/action/men.action';
 import { useDispatch, useSelector } from 'react-redux';
+import Loading from '../component/loding/Loading';
 
 
 function MenEra(props) {
@@ -52,11 +53,6 @@ function MenEra(props) {
 
 
     useEffect(() => {
-        // let localData = JSON.parse(localStorage.getItem("men"));
-
-        // if (localData !== null) {
-        //     setMenData(localData);
-        // }
 
         dispatch(getMenData())
 
@@ -75,7 +71,7 @@ function MenEra(props) {
                         <IconButton aria-label="delete" onClick={() => { setDid(params.row.id); handledClickOpen() }}>
                             <DeleteIcon />
                         </IconButton>
-                        <IconButton aria-label="delete" onClick={() => handleUpdate(params.row)}>
+                        <IconButton aria-label="EDIT" onClick={() => handleUpdate(params.row)}>
                             <EditIcon />
                         </IconButton>
                     </>
@@ -85,38 +81,27 @@ function MenEra(props) {
     ];
 
     const doctorData = (values) => {
-        // let localData = JSON.parse(localStorage.getItem("men"));
-        // console.log(localData);
-
-        // let did = Math.round(Math.random() * 1000);
-        // let sDid = { ...values, id: did }
-
-        // if (localData !== null) {
-        //     localData.push(sDid)
-        //     localStorage.setItem("men", JSON.stringify(localData));
-        //     setMenData(localData)
-        // } else {
-        //     setMenData([sDid])
-        //     localStorage.setItem("men", JSON.stringify([sDid]));
-        // }
-        // console.log(menData);
-        // menObj.resetForm()
 
         dispatch(handlePostMenData(values))
 
     }
 
-    const handleDelet = () => {
-        console.log("delet id");
+    const handleDelet = (did) => {
+        // console.log("delet id");
 
-        let localData = JSON.parse(localStorage.getItem("men"));
-        let dData = localData.filter((l) => l.id !== did);
+        // let localData = JSON.parse(localStorage.getItem("men"));
+        // let dData = localData.filter((l) => l.id !== did);
 
-        localStorage.setItem("men", JSON.stringify(dData));
-        setMenData(dData);
-        setDid();
+        // localStorage.setItem("men", JSON.stringify(dData));
+        // setMenData(dData);
+        // setDid();
 
-        setdOpen(false);
+        // setdOpen(false);
+        console.log(did);
+        dispatch(handleDeletMenData(did))
+        handledClose()
+        // setDid();
+
     }
 
     const handleUpdate = (upValue) => {
@@ -126,32 +111,34 @@ function MenEra(props) {
         setEid(upValue);
     }
 
-    const handleUpdateData = (NupData) => {
-        console.log(NupData);
+    const handleUpdateData = (values) => {
+        console.log(values);
         console.log("update okok");
 
-        let localData = JSON.parse(localStorage.getItem("men"));
-        console.log(".. local data in update");
-        console.log(localData);
+        dispatch(putMenData(values))
 
-        let updateDdata = localData.map((s) => {
+        // let localData = JSON.parse(localStorage.getItem("men"));
+        // console.log(".. local data in update");
+        // console.log(localData);
 
-            if (s.id === NupData.id) {
-                // console.log("s id");
-                // console.log(s.id);
-                return NupData;
-            } else {
-                return s;
-            }
-        })
+        // let updateDdata = localData.map((s) => {
 
-        localStorage.setItem("men", JSON.stringify(updateDdata))
+        //     if (s.id === NupData.id) {
+        //         // console.log("s id");
+        //         // console.log(s.id);
+        //         return NupData;
+        //     } else {
+        //         return s;
+        //     }
+        // })
+
+        // localStorage.setItem("men", JSON.stringify(updateDdata))
 
         // console.log(localData);
-        menData(updateDdata)
-        setEid("");
-        setValues();
-        menObj.resetForm()
+        // menData(updateDdata)
+        // setEid("");
+        // setValues();
+        // menObj.resetForm()
     }
 
     let schema = yup.object().shape({
@@ -267,15 +254,17 @@ function MenEra(props) {
                 </Dialog>
             </div>
             {/* ++++++++++++++++++ TABLE GRID ++++++++++++++++ */}
-            <div style={{ height: 400, width: '100%' }}>
-                <DataGrid
-                    rows={MenFinData.menData}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
-                    checkboxSelection
-                />
-            </div>
+           {
+            MenFinData.isLoder ?<Loading/> :  <div style={{ height: 400, width: '100%' }}>
+            <DataGrid
+                rows={MenFinData.menData}
+                columns={columns}
+                pageSize={5}
+                rowsPerPageOptions={[5]}
+                checkboxSelection
+            />
+        </div>
+           }
 
             {/* +++++++++++++++++ DELET DAILOG BOX +++++++++++++ */}
             <div>
@@ -299,7 +288,7 @@ function MenEra(props) {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handledClose}>Disagree</Button>
-                        <Button onClick={() => handleDelet()} autoFocus>
+                        <Button onClick={() => handleDelet(did)} autoFocus>
                             Agree
                         </Button>
                     </DialogActions>
