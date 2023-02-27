@@ -254,17 +254,17 @@ function MenEra(props) {
                 </Dialog>
             </div>
             {/* ++++++++++++++++++ TABLE GRID ++++++++++++++++ */}
-           {
-            MenFinData.isLoder ?<Loading/> :  <div style={{ height: 400, width: '100%' }}>
-            <DataGrid
-                rows={MenFinData.menData}
-                columns={columns}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
-                checkboxSelection
-            />
-        </div>
-           }
+            {
+                MenFinData.isLoder ? <Loading /> : <div style={{ height: 400, width: '100%' }}>
+                    <DataGrid
+                        rows={MenFinData.menData}
+                        columns={columns}
+                        pageSize={5}
+                        rowsPerPageOptions={[5]}
+                        checkboxSelection
+                    />
+                </div>
+            }
 
             {/* +++++++++++++++++ DELET DAILOG BOX +++++++++++++ */}
             <div>

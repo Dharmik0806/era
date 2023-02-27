@@ -14,10 +14,17 @@ import { DataGrid } from '@mui/x-data-grid';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { useDispatch, useSelector } from 'react-redux';
+import { deletKidData, getKidData, postKidData, putKidData } from '../../redux/action/kid.action';
+import Loading from '../component/loding/Loading';
+import Errore from '../component/errore/Errore';
 
 
 function KidEra(props) {
 
+    const dispatch = useDispatch()
+    const kidFinData = useSelector(state => state.kid)
+    console.log(kidFinData);
     const [open, setOpen] = React.useState(false);
     const [kidData, setKidData] = useState([]);
     const [did, setDid] = useState("");
@@ -46,11 +53,13 @@ function KidEra(props) {
 
 
     useEffect(() => {
-        let localData = JSON.parse(localStorage.getItem("kid"));
+        // let localData = JSON.parse(localStorage.getItem("kid"));
 
-        if (localData !== null) {
-            setKidData(localData);
-        }
+        // if (localData !== null) {
+        //     setKidData(localData);
+        // }
+
+        dispatch(getKidData())
 
     }, []);
 
@@ -58,7 +67,7 @@ function KidEra(props) {
         { field: 'id', headerName: 'ID', width: 70 },
         { field: 'name', headerName: 'Name', width: 130 },
         { field: 'price', headerName: 'Price', width: 130 },
-       
+
         {
             field: "Action", headerName: "Action", width: 130,
             renderCell: (params) => {
@@ -77,36 +86,39 @@ function KidEra(props) {
     ];
 
     const doctorData = (values) => {
-        let localData = JSON.parse(localStorage.getItem("kid"));
-        console.log(localData);
+        // let localData = JSON.parse(localStorage.getItem("kid"));
+        // console.log(localData);
 
-        let did = Math.round(Math.random() * 1000);
-        let sDid = { ...values, id: did }
+        // let did = Math.round(Math.random() * 1000);
+        // let sDid = { ...values, id: did }
 
-        if (localData !== null) {
-            localData.push(sDid)
-            localStorage.setItem("kid", JSON.stringify(localData));
-            setKidData(localData)
-        } else {
-            setKidData([sDid])
-            localStorage.setItem("kid", JSON.stringify([sDid]));
-        }
-        console.log(kidData);
+        // if (localData !== null) {
+        //     localData.push(sDid)
+        //     localStorage.setItem("kid", JSON.stringify(localData));
+        //     setKidData(localData)
+        // } else {
+        //     setKidData([sDid])
+        //     localStorage.setItem("kid", JSON.stringify([sDid]));
+        // }
+        // console.log(kidData);
         // menObj.resetForm()
+
+        dispatch(postKidData(values))
 
     }
 
     const handleDelet = () => {
-        console.log("delet id");
+        // console.log("delet id");
 
-        let localData = JSON.parse(localStorage.getItem("kid"));
-        let dData = localData.filter((l) => l.id !== did);
+        // let localData = JSON.parse(localStorage.getItem("kid"));
+        // let dData = localData.filter((l) => l.id !== did);
 
-        localStorage.setItem("kid", JSON.stringify(dData));
-        setKidData(dData);
-        setDid();
+        // localStorage.setItem("kid", JSON.stringify(dData));
+        // setKidData(dData);
+        // setDid();
 
-        setdOpen(false);
+        // setdOpen(false);
+        dispatch(deletKidData(did))
     }
 
     const handleUpdate = (upValue) => {
@@ -117,31 +129,33 @@ function KidEra(props) {
     }
 
     const handleUpdateData = (NupData) => {
-        console.log(NupData);
-        console.log("update okok");
+        //     console.log(NupData);
+        //     console.log("update okok");
 
-        let localData = JSON.parse(localStorage.getItem("kid"));
-        console.log(".. local data in update");
-        console.log(localData);
+        //     let localData = JSON.parse(localStorage.getItem("kid"));
+        //     console.log(".. local data in update");
+        //     console.log(localData);
 
-       let updateDdata = localData.map((s) => {
+        //    let updateDdata = localData.map((s) => {
 
-            if(s.id === NupData.id) {
-                // console.log("s id");
-                // console.log(s.id);
-                return NupData;
-            }else{
-                return s;
-            }
-        })
+        //         if(s.id === NupData.id) {
+        //             // console.log("s id");
+        //             // console.log(s.id);
+        //             return NupData;
+        //         }else{
+        //             return s;
+        //         }
+        //     })
 
-        localStorage.setItem("kid", JSON.stringify(updateDdata))
-       
-        // console.log(localData);
-        kidData(updateDdata)
-        setEid("");
-        setValues();
-        menObj.resetForm()
+        // localStorage.setItem("kid", JSON.stringify(updateDdata))
+
+        // // console.log(localData);
+        // kidData(updateDdata)
+        // setEid("");
+        // setValues();
+        // menObj.resetForm()
+
+        dispatch(putKidData(NupData))
     }
 
     let schema = yup.object().shape({
@@ -155,7 +169,7 @@ function KidEra(props) {
         initialValues: {
             name: "",
             price: "",
-            img : ""
+            img: ""
         },
 
         validationSchema: schema,
@@ -256,19 +270,25 @@ function KidEra(props) {
                 </Dialog>
             </div>
             {/* ++++++++++++++++++ TABLE GRID ++++++++++++++++ */}
-            <div style={{ height: 400, width: '100%' }}>
-                <DataGrid
-                    rows={kidData}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
-                    checkboxSelection
-                />
-            </div>
+
+            {
+                kidFinData.isLoder ? <Loading /> : kidFinData.error ? <Errore errMsg={kidFinData.error}  />:
+                    <div style={{ height: 400, width: '100%' }}>
+                        <DataGrid
+                            rows={kidFinData.kid}
+                            columns={columns}
+                            pageSize={5}
+                            rowsPerPageOptions={[5]}
+                            checkboxSelection
+                        />
+                    </div>
+
+            }
+
 
             {/* +++++++++++++++++ DELET DAILOG BOX +++++++++++++ */}
             <div>
-               
+
                 <Dialog
                     open={dopen}
                     onClose={handledClose}

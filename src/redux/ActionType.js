@@ -26,3 +26,13 @@ export const WOMEN_POST_DATA = "WOMEN_POST_DATA"
 export const WOMEN_PUT_DATA = "WOMEN_PUT_DATA"
 export const WOMEN_DELETE_DATA = "WOMEN_DELETE_DATA"
 export const WOMEN_LOADING= "WOMEN_LOADING"   
+
+
+export const KID_GET_DATA= "KID_GET_DATA"   
+export const KID_POST_DATA = "KID_POST_DATA"
+export const KID_PUT_DATA = "KID_PUT_DATA"
+export const KID_DELETE_DATA = "KID_DELETE_DATA"
+export const KID_LOADING_DATA = "KID_LOADING_DATA"
+export const KID_ERRORE_DATA = "KID_ERRORE_DATA"
+
+

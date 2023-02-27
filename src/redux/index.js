@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import { counterReducer } from "./reducer/counter.reducer";
+import { kidReducer } from "./reducer/kid.reducer";
 import { medicineReducer } from "./reducer/medicine.reducer";
 import { menReducer } from "./reducer/men.reducer";
 import { WatchReducer } from "./reducer/watch.reducer";
@@ -11,5 +12,6 @@ export const routeReducer = combineReducers({
     medicine : medicineReducer,
     watch : WatchReducer,
     men : menReducer,
-    women : womenReducer
+    women : womenReducer,
+    kid : kidReducer
 })

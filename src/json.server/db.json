@@ -33,7 +33,7 @@
   ],
   "MenEra": [
     {
-      "name": "WERwerw",
+      "name": "WERwerwee",
       "price": 345345,
       "img": 3,
       "id": 2
@@ -47,7 +47,12 @@
       "id": 21
     }
   ],
-  "profile": {
-    "name": "typicode"
-  }
+  "kidEra": [
+    {
+      "name": "wersdfsdf",
+      "price": 3453,
+      "img": 544434,
+      "id": 21
+    }
+  ]
 }

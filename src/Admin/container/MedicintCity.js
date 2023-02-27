@@ -302,7 +302,6 @@ function MedicineCity(props) {
             }
 
 
-
         </div >
     );
 }
