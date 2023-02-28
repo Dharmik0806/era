@@ -1,11 +1,20 @@
-import { getRequest, postRequest } from "../request"
+import { deleteRequest, getRequest, postRequest, putRequest } from "../request"
 
 
-export const fetchAllMedicines = () => {
-    return getRequest('MenEra')
+export const fetchAllMenData = () => {
+    return getRequest("MenEra")
 }
 
+export const addMenData = (data) => {
+    return postRequest("MenEra", data)
+}
 
-export const postAllMedicines = () => {
-    return postRequest('MenEra')
+export const updateMenData = (row) => {
+    console.log(row);
+    return putRequest("MenEra/", row)
+}
+
+export const removeMenData = (id) => {
+    console.log(id);
+    return deleteRequest("MenEra/", id)
 }

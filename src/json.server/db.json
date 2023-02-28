@@ -24,18 +24,24 @@
   ],
   "Watch": [
     {
-      "name": "asd",
+      "name": "qwe",
       "price": "123",
-      "color": "red",
-      "qua": "123",
-      "id": 1
+      "color": "we",
+      "qua": "2",
+      "id": 2
     }
   ],
   "MenEra": [
     {
-      "name": "WERwerwee",
-      "price": 345345,
-      "img": 3,
+      "name": "asd",
+      "price": 123,
+      "img": 2,
+      "id": 1
+    },
+    {
+      "name": "qwe",
+      "price": 234,
+      "img": 4,
       "id": 2
     }
   ],
@@ -45,6 +51,18 @@
       "price": 3453,
       "img": 44,
       "id": 21
+    },
+    {
+      "name": "asd",
+      "price": 123,
+      "img": 2,
+      "id": 22
+    },
+    {
+      "name": "aaa",
+      "price": 111,
+      "img": 2,
+      "id": 23
     }
   ],
   "kidEra": [

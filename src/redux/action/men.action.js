@@ -1,5 +1,6 @@
 import { Row } from "reactstrap";
-import { fetchAllMedicines, postAllMedicines } from "../../common/apis/men.api";
+import { addMenData, fetchAllMenData, removeMenData, updateMenData } from "../../common/apis/men.api";
+
 import * as  ActionType from "../ActionType"
 
 
@@ -18,7 +19,7 @@ export const getMenData = () => (dispatch) => {
 
         setTimeout(() => {
 
-            fetchAllMedicines()
+            fetchAllMenData()
                 // .then((response) => console.log(response.data))
                 .then((response) => dispatch({ type: ActionType.MEN_GET_DATA, payload: response.data }))
 
@@ -40,8 +41,8 @@ export const handlePostMenData = (data1) => (dispatch) => {
         // })
         //     .then((response) => response.json())
         //     .then((data) => dispatch({ type: ActionType.MEN_POST_DATA, payload: data }))
-        
-        postAllMedicines()
+
+        addMenData(data1)
             .then((response) => dispatch({ type: ActionType.MEN_POST_DATA, payload: response.data }))
     } catch (errore) {
 
@@ -51,11 +52,14 @@ export const handlePostMenData = (data1) => (dispatch) => {
 export const handleDeletMenData = (id) => (dispatch) => {
     console.log(id);
     try {
-        fetch(`http://localhost:3004/MenEra/${id}`, {
-            method: 'DELETE',
-        })
-            .then((response) => response.json())
+        // fetch(`http://localhost:3004/MenEra/${id}`, {
+        //     method: 'DELETE',
+        // })
+        //     .then((response) => response.json())
+        //     .then(() => dispatch({ type: ActionType.MEN_DELETE_DATA, payload: id }))
+        removeMenData(id)
             .then(() => dispatch({ type: ActionType.MEN_DELETE_DATA, payload: id }))
+
 
     } catch (errore) {
 
@@ -64,16 +68,20 @@ export const handleDeletMenData = (id) => (dispatch) => {
 
 export const putMenData = (row) => (dispatch) => {
     try {
-        fetch('http://localhost:3004/MenEra/' + (row.id), {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(row)
-        })
+        // fetch('http://localhost:3004/MenEra/' + (row.id), {
+        //     method: 'PUT',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(row)
+        // })
 
-            .then((response) => response.json())
-            .then((data) => dispatch({ type: ActionType.MEN_PUT_DATA, payload: data }))
+        //     .then((response) => response.json())
+        //     .then((data) => dispatch({ type: ActionType.MEN_PUT_DATA, payload: data }))
+
+        updateMenData(row)
+            .then((response) => dispatch({ type: ActionType.MEN_PUT_DATA, payload: response.data }))
+        // .then((response) =>console.log(response.data ))
 
     } catch (errore) {
 
