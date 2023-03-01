@@ -17,6 +17,10 @@ export const getWatchData = () => (dispatch) => {
             //     })
             fetchAllWatchData()
             .then((response) => dispatch({type : ActionType.WATCH_GET , payload : response.data}))
+            .catch((error) => {
+                        // console.log('Error:', error.message)
+                        dispatch(handleWatchErrore(error.message))
+                    })
         }, 2000);
 
     } catch (error) {

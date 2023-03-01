@@ -21,11 +21,12 @@ import { configerStore } from './redux/store';
 import { Provider } from 'react-redux';
 import Counter from './container/counter/Counter';
 import Watch from './Admin/container/Watch';
+import { PersistGate } from 'redux-persist/integration/react'
 
 
 function App() {
 
-  const store = configerStore()
+  const {store,persistor}= configerStore()
   return (
     <>
       {/* <Header />
@@ -48,16 +49,18 @@ function App() {
       {/* <About /> */}
 
       <Provider store={store}>
-        <LayoutEra> 
-          <Switch>
-            <Route exact path={"/MenEra"} component={MenEra} />
-            <Route exact path={"/WomenEra"} component={WomenEra} />
-            <Route exact path={"/KidEra"} component={KidEra} />
-            <Route exact path={"/counter"} component={Counter} />
-            <Route exact path={"/medEra"} component={MedicineCity} />
-            <Route exact path={"/watch"} component={Watch} />
-          </Switch>
-        </LayoutEra>
+      <PersistGate loading={null} persistor={persistor}>
+          <LayoutEra>
+            <Switch>
+              <Route exact path={"/MenEra"} component={MenEra} />
+              <Route exact path={"/WomenEra"} component={WomenEra} />
+              <Route exact path={"/KidEra"} component={KidEra} />
+              <Route exact path={"/counter"} component={Counter} />
+              <Route exact path={"/medEra"} component={MedicineCity} />
+              <Route exact path={"/watch"} component={Watch} />
+            </Switch>
+          </LayoutEra>
+          </PersistGate>
       </Provider>
 
       {/* ok 0702_23 */}
