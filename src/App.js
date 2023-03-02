@@ -26,7 +26,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 
 function App() {
 
-  const {store,persistor}= configerStore()
+  const { store, persistor } = configerStore()
   return (
     <>
       {/* <Header />
@@ -48,21 +48,34 @@ function App() {
       {/* <Footer /> */}
       {/* <About /> */}
 
-      <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-          <LayoutEra>
-            <Switch>
-              <Route exact path={"/MenEra"} component={MenEra} />
-              <Route exact path={"/WomenEra"} component={WomenEra} />
-              <Route exact path={"/KidEra"} component={KidEra} />
-              <Route exact path={"/counter"} component={Counter} />
-              <Route exact path={"/medEra"} component={MedicineCity} />
-              <Route exact path={"/watch"} component={Watch} />
-            </Switch>
-          </LayoutEra>
-          </PersistGate>
-      </Provider>
+      <themeProvider>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            {/* <LayoutEra>
+              <Switch>
+                <Route exact path={"/MenEra"} component={MenEra} />
+                <Route exact path={"/WomenEra"} component={WomenEra} />
+                <Route exact path={"/KidEra"} component={KidEra} />
+                <Route exact path={"/counter"} component={Counter} />
+                <Route exact path={"/medEra"} component={MedicineCity} />
+                <Route exact path={"/watch"} component={Watch} />
+              </Switch>
+            </LayoutEra> */}
 
+            <Header />
+            <Switch>
+              <PublicRoute exact path="/" component={Home} />
+              <PublicRoute exact path="/men" component={Men} />
+              <PublicRoute exact path="/women" component={Women} />
+              <PublicRoute exact path="/kid" component={Kid} />
+              <PublicRoute exact path="/ContectUs" component={ContectUs} />
+              <PublicRoute exact path="/Signin" restricted={true} component={Signin} />
+              <PublicRoute exact path="/About" component={AboutUs} />
+            </Switch>
+            <Footer />
+          </PersistGate>
+        </Provider>
+      </themeProvider>
       {/* ok 0702_23 */}
     </>
   );

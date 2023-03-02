@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import ThemeContext from '../../redux/context/themeContext';
 import { checkData } from '../../utility/Utility';
 
 function Header(props) {
+
+    const themeData = useContext(ThemeContext)
+
+    console.log(themeData);
 
     const logoutAccount=() => {
         localStorage.clear();

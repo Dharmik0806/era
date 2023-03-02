@@ -36,3 +36,6 @@ export const KID_LOADING_DATA = "KID_LOADING_DATA"
 export const KID_ERRORE_DATA = "KID_ERRORE_DATA"
 
 
+export const THEME_TOGGLE = "THEME_TOGGLE"
+
+
