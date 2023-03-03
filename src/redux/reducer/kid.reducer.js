@@ -7,7 +7,7 @@ const initialState = {
 }
 
 export const kidReducer = (state = initialState, action) => {
-    console.log(action.payload, state);
+    // console.log(action.payload, state);
     switch (action.type) {
         case ActionType.KID_GET_DATA:
             return {

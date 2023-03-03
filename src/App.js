@@ -22,6 +22,7 @@ import { Provider } from 'react-redux';
 import Counter from './container/counter/Counter';
 import Watch from './Admin/container/Watch';
 import { PersistGate } from 'redux-persist/integration/react'
+import { ThemeProvider } from './redux/context/ThemeContext';
 
 
 function App() {
@@ -48,7 +49,7 @@ function App() {
       {/* <Footer /> */}
       {/* <About /> */}
 
-      <themeProvider>
+      <ThemeProvider>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             {/* <LayoutEra>
@@ -75,7 +76,7 @@ function App() {
             <Footer />
           </PersistGate>
         </Provider>
-      </themeProvider>
+      </ThemeProvider>
       {/* ok 0702_23 */}
     </>
   );

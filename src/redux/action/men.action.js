@@ -5,7 +5,7 @@ import * as  ActionType from "../ActionType"
 
 
 export const getMenData = () => (dispatch) => {
-    console.log("getMenData");
+    // console.log("getMenData");
 
     try {
         // dispatch(menLoading())

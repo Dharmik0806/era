@@ -8,10 +8,11 @@ const initState = {
     themeStyle: 'light'
 }
 
-const themeProvider = ({children}) => {
+export const ThemeProvider = ({children}) => {
     const [state, dispatch] = useReducer(themeReducer, initState);
 
     const themeToggle = (themVal) => {
+        console.log(themVal);
         const newThemVal = themVal === "light" ? "dark" : "light"
 
         dispatch({

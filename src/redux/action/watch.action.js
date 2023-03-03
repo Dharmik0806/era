@@ -2,7 +2,7 @@ import { fetchAllWatchData , addWatchData11, updateWatchData, removeWatchData} f
 import * as ActionType from "../ActionType"
 
 export const getWatchData = () => (dispatch) => {
-    console.log("Watch action (getmedicine)");
+    // console.log("Watch action (getmedicine)");
 
     try {
         dispatch(handleLoading());

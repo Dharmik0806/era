@@ -1,21 +1,26 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import ThemeContext from '../../redux/context/themeContext';
+import ThemeContext from '../../redux/context/ThemeContext';
 import { checkData } from '../../utility/Utility';
-
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 function Header(props) {
 
     const themeData = useContext(ThemeContext)
 
+    console.log("useContext");
     console.log(themeData);
 
-    const logoutAccount=() => {
+    console.log(themeData.themeStyle);
+
+    const logoutAccount = () => {
         localStorage.clear();
     }
     return (
         <>
             {/* ***** Header Area Start ***** */}
-            <header className="header-area header-sticky" id='h'>
+            <header className={`header-area header-sticky ${(themeData.themeStyle) === "dark" ? "light" : "dark"}`} id='h'>
+            
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
@@ -52,9 +57,16 @@ function Header(props) {
                                     <li className="scroll-to-section"><NavLink exact to="#">Explore</NavLink></li>
 
                                     {
-                                       checkData() ?  <li className="scroll-to-section"><NavLink onClick={() => logoutAccount()}  exact to="/Signin">Signout</NavLink></li> :
-                                        <li className="scroll-to-section"><NavLink exact to="/Signin">SignIn</NavLink></li>
+                                        checkData() ? <li className="scroll-to-section"><NavLink onClick={() => logoutAccount()} exact to="/Signin">Signout</NavLink></li> :
+                                            <li className="scroll-to-section"><NavLink exact to="/Signin">SignIn</NavLink></li>
                                     }
+                        
+                                    <button onClick={() => themeData.themeToggle(themeData.themeStyle)} className="theme-btn">
+                                        {
+                                            (themeData.themeStyle) === "dark" ? <DarkModeIcon className='theme-icon'/> : <LightModeIcon className='theme-icon'/>
+                                        }
+                                    </button>
+
                                 </ul>
                                 <a className="menu-trigger">
                                     <span>Menu</span>

@@ -8,7 +8,7 @@ const initialState = {
 }
 
 export const womenReducer = (state = initialState, action) => {
-    console.log(action.payload, state.womenData);
+    // console.log(action.payload, state.womenData);
     switch (action.type) {
         case ActionType.WOMEN_GET_DATA:
             return {

@@ -7,8 +7,8 @@ const initialState = {
 }
 
 export const menReducer = (state = initialState, action) => {
-    console.log(action.type, state);
-    console.log(action);
+    // console.log(action.type, state);
+    // console.log(action);
     switch (action.type) {
         case ActionType.MEN_GET_DATA:
             return {
