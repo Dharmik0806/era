@@ -8,10 +8,10 @@ function Header(props) {
 
     const themeData = useContext(ThemeContext)
 
-    console.log("useContext");
-    console.log(themeData);
+    // console.log("useContext");
+    // console.log(themeData);
 
-    console.log(themeData.themeStyle);
+    // console.log(themeData.themeStyle);
 
     const logoutAccount = () => {
         localStorage.clear();
@@ -19,8 +19,9 @@ function Header(props) {
     return (
         <>
             {/* ***** Header Area Start ***** */}
-            <header className={`header-area header-sticky ${(themeData.themeStyle) === "dark" ? "light" : "dark"}`} id='h'>
             
+            <header className={`header-area header-sticky ${(themeData.themeStyle) === "dark" ? "light" : "dark"}`} id='h'>
+
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
@@ -60,19 +61,21 @@ function Header(props) {
                                         checkData() ? <li className="scroll-to-section"><NavLink onClick={() => logoutAccount()} exact to="/Signin">Signout</NavLink></li> :
                                             <li className="scroll-to-section"><NavLink exact to="/Signin">SignIn</NavLink></li>
                                     }
-                        
-                                    <button onClick={() => themeData.themeToggle(themeData.themeStyle)} className="theme-btn">
-                                        {
-                                            (themeData.themeStyle) === "dark" ? <DarkModeIcon className='theme-icon'/> : <LightModeIcon className='theme-icon'/>
-                                        }
-                                    </button>
+
+
 
                                 </ul>
                                 <a className="menu-trigger">
                                     <span>Menu</span>
                                 </a>
                                 {/* ***** Menu End ***** */}
+                                <button onClick={() => themeData.themeToggle(themeData.themeStyle)} className="theme-btn">
+                                    {
+                                        (themeData.themeStyle) === "dark" ? <DarkModeIcon className='theme-icon' /> : <LightModeIcon className='theme-icon' />
+                                    }
+                                </button>
                             </nav>
+
                         </div>
                     </div>
                 </div>

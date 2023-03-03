@@ -166,30 +166,70 @@ width: 95%;
 
 /* theme change */
 .dark{
-    background-color: #000;
+    background-color: #000 !important;
     color: fff;
 }
 
 .light{
-    background-color: #fff;
-    color: #000;
+    background-color: #fff !important;
+    color: #000 !important ;
 }
 
 .theme-btn{
     font-size: 13px;
-    margin: 3px 30px 0px 0px!important;
+    margin: 30px 30px 0px 115px!important;    
     /* color: #fff; */
     border: 1px solid #fff;
     padding: 3px 15px;
     background-color: rgb(88, 85, 85);
     display: inline-block;
-    font-weight: 500;
+    font-weight: bold;
     transition: all .3s;
     box-shadow: 1px 1px 5px white;
-    
+    border-radius: 5px;
+    height: 40px;
     
 }
 
 .theme-icon{
     color: #fff;
+}
+
+.header-area .main-nav .nav {
+    width: 85% !important;
+}
+
+.header .container{
+    max-width: 1500px !important;
+}
+
+.main-nav .logo{
+    /* width: 85% !important;
+    margin-left: 150px; */
+    margin-left: 50px;
+}
+.main-nav .nav{
+    width: 85% !important;
+    margin-left: 150px;
+}
+.main-nav{
+    /* width: 100%; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around !important;
+}
+.dark .section-heading h2 , .nav-main-container .header-area .main-nav .nav li a{
+    color: #fff;
+}
+/* nav-main-container */
+/* .nav-main-container .header-area .main-nav .nav li a {
+    color: #fff;
+} */
+
+@media (min-width: 1400px)
+/* .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl */
+ {
+   .container{
+    max-width: 1520px;
+   }
 }

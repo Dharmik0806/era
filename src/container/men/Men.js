@@ -1,10 +1,16 @@
 import { Search } from '@mui/icons-material';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ListEra from '../../component/list/ListEra';
+import ThemeContext from '../../redux/context/ThemeContext';
 
 
 function Men(props) {
+
+     // For theme
+     const themeData = useContext(ThemeContext)
+     //  
+ 
 
     const [data, setData] = useState([]);
     const [fdata, setFdata] = useState()
@@ -88,7 +94,9 @@ function Men(props) {
         <>
             {/* ***** Men Area Starts ***** */}
             <div className='mainContainer'>
-                <section className="section menComp" id="men">
+            
+           
+                <section className={`section menComp ${(themeData.themeStyle) === "dark" ? "light" : "dark"}`} id="men">
 
                     <div className="container">
                         <div className="row">

@@ -1,7 +1,13 @@
 import React from 'react';
 import Slider from "react-slick";
 
+// For theme
+
+import { useContext } from 'react';
+import ThemeContext from '../../redux/context/ThemeContext';
+
 function SampleNextArrow(props) {
+
     const { className, style, onClick } = props;
     return (
         <div
@@ -29,6 +35,11 @@ function SamplePrevArrow(props) {
 
 function Home(props) {
 
+
+    // For theme
+    const themeData = useContext(ThemeContext)
+    //  
+
     const settings = {
         dots: false,
         infinite: true,
@@ -42,9 +53,10 @@ function Home(props) {
 
     return (
         <>
-            <div>
+            <div className={`${(themeData.themeStyle) === "dark" ? "light" : "dark"}`} >
                 {/* ***** Main Banner Area Start ***** */}
-                <div className="main-banner" id="top">
+                <div className={`main-banner ${(themeData.themeStyle) === "dark" ? "light" : "dark"}`} id="top">
+
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-lg-6">

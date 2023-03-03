@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ListEra from '../../component/list/ListEra';
+import ThemeContext from '../../redux/context/ThemeContext';
 // import Slider from 'react-slick';
 
 function Women(props) {
+
+      // For theme
+      const themeData = useContext(ThemeContext)
+      //
+
     const [data, setData] = useState([]);
     const [fdata, setFdata] = useState()
     const [sdata, setSdata] = useState()
@@ -84,7 +90,7 @@ function Women(props) {
             {/* ***** women Area Starts ***** */}
             <div className='mainContainer'>
 
-                <section className="section" id="women">
+                <section className={`section ${(themeData.themeStyle) === "dark" ? "light" : "dark"}`} id="women">
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-6">

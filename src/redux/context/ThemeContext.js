@@ -5,7 +5,7 @@ import * as ActionType from '../ActionType'
 const ThemeContext = createContext()
 
 const initState = {
-    themeStyle: 'light'
+    themeStyle: 'dark'
 }
 
 export const ThemeProvider = ({children}) => {
