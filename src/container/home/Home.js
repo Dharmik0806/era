@@ -55,7 +55,9 @@ function Home(props) {
         <>
             <div className={`${(themeData.themeStyle) === "dark" ? "light" : "dark"}`} >
                 {/* ***** Main Banner Area Start ***** */}
-                <div className={`main-banner ${(themeData.themeStyle) === "dark" ? "light" : "dark"}`} id="top">
+                <div className="main-banner"
+                // className={`main-banner ${(themeData.themeStyle) === "dark" ? "light" : "dark"}`} 
+                id="top">
 
                     <div className="container-fluid">
                         <div className="row">

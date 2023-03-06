@@ -1,3 +1,5 @@
+import { addDoc, collection } from "firebase/firestore"
+import { db } from "../../fireBase/FireBase"
 import * as ActionType from "../ActionType"
 
 export const getKidData = () => (dispatch) => {
@@ -15,18 +17,23 @@ export const getKidData = () => (dispatch) => {
    }
 }
 
-export const postKidData = (data1) => (dispatch) => {
+export const postKidData = (data1) => async (dispatch) => {
    try {
-      fetch('http://localhost:3004/kidEra', {
-         method: "POST",
-         headers: {
-            'Content-Type': 'application/json'
-         },
-         body: JSON.stringify(data1)
-      })
+      // fetch('http://localhost:3004/kidEra', {
+      //    method: "POST",
+      //    headers: {
+      //       'Content-Type': 'application/json'
+      //    },
+      //    body: JSON.stringify(data1)
+      // })
 
-         .then((response) => response.json())
-         .then((data) => dispatch({ type: ActionType.KID_POST_DATA, payload: data }))
+      //    .then((response) => response.json())
+      //    .then((data) => dispatch({ type: ActionType.KID_POST_DATA, payload: data }))
+
+      const docRef = await addDoc(collection(db, "kid"), data1);
+
+      console.log("Document written with ID: ", docRef.id);
+
    } catch (errore) {
 
    }

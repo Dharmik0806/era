@@ -52,7 +52,7 @@ function App() {
       <ThemeProvider>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            {/* <LayoutEra>
+            <LayoutEra>
               <Switch>
                 <Route exact path={"/MenEra"} component={MenEra} />
                 <Route exact path={"/WomenEra"} component={WomenEra} />
@@ -61,9 +61,9 @@ function App() {
                 <Route exact path={"/medEra"} component={MedicineCity} />
                 <Route exact path={"/watch"} component={Watch} />
               </Switch>
-            </LayoutEra> */}
+            </LayoutEra>
 
-            <Header />
+            {/* <Header />
             <Switch>
               <PublicRoute exact path="/" component={Home} />
               <PublicRoute exact path="/men" component={Men} />
@@ -73,7 +73,7 @@ function App() {
               <PublicRoute exact path="/Signin" restricted={true} component={Signin} />
               <PublicRoute exact path="/About" component={AboutUs} />
             </Switch>
-            <Footer />
+            <Footer /> */}
           </PersistGate>
         </Provider>
       </ThemeProvider>
