@@ -1,17 +1,34 @@
-import { addDoc, collection } from "firebase/firestore"
+import { async } from "@firebase/util";
+import { addDoc, collection, doc, getDocs } from "firebase/firestore"
 import { db } from "../../fireBase/FireBase"
 import * as ActionType from "../ActionType"
 
-export const getKidData = () => (dispatch) => {
+export const getKidData = () => async (dispatch) => {
    try {
 
-      dispatch(kidLoading())
-      setTimeout(() => {
-         fetch("http://localhost:3004/kidEra")
-            .then((response) => response.json())
-            .then((data) => dispatch({ type: ActionType.KID_GET_DATA, payload: data }))
-            .catch((error) => dispatch(handleErrore(error.message)))
-      }, 2000)
+      // dispatch(kidLoading())
+      // setTimeout(() => {
+      //    fetch("http://localhost:3004/kidEra")
+      //       .then((response) => response.json())
+      //       .then((data) => dispatch({ type: ActionType.KID_GET_DATA, payload: data }))
+      //       .catch((error) => dispatch(handleErrore(error.message)))
+      // }, 2000)
+
+      const querySnapshot = await getDocs(collection(db, "kid"));
+
+      let data = [];
+
+      querySnapshot.forEach((doc) => {
+         // console.log(`${doc.id} => ${doc.data()}`);
+         // console.log(doc.id);
+         data.push({
+            ...doc.data(),
+            id: doc.id
+         })
+      });
+
+      dispatch({ type: ActionType.KID_GET_DATA, payload: data })
+      console.log(data);
    } catch (errore) {
 
    }
@@ -32,7 +49,10 @@ export const postKidData = (data1) => async (dispatch) => {
 
       const docRef = await addDoc(collection(db, "kid"), data1);
 
-      console.log("Document written with ID: ", docRef.id);
+      
+
+      // console.log("Document written with ID: ", docRef.id);
+      // dispatch({ type: ActionType.KID_POST_DATA, payload: {...data1, id:docRef.id}})
 
    } catch (errore) {
 
