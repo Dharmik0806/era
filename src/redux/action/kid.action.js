@@ -1,5 +1,5 @@
 import { async } from "@firebase/util";
-import { addDoc, collection, doc, getDocs } from "firebase/firestore"
+import { addDoc, collection, doc, getDocs, deleteDoc, updateDoc } from "firebase/firestore"
 import { db } from "../../fireBase/FireBase"
 import * as ActionType from "../ActionType"
 
@@ -13,6 +13,7 @@ export const getKidData = () => async (dispatch) => {
       //       .then((data) => dispatch({ type: ActionType.KID_GET_DATA, payload: data }))
       //       .catch((error) => dispatch(handleErrore(error.message)))
       // }, 2000)
+      // *************************************************************************
 
       const querySnapshot = await getDocs(collection(db, "kid"));
 
@@ -47,42 +48,57 @@ export const postKidData = (data1) => async (dispatch) => {
       //    .then((response) => response.json())
       //    .then((data) => dispatch({ type: ActionType.KID_POST_DATA, payload: data }))
 
+      // ********************************************************************
       const docRef = await addDoc(collection(db, "kid"), data1);
 
-      
+
 
       // console.log("Document written with ID: ", docRef.id);
-      // dispatch({ type: ActionType.KID_POST_DATA, payload: {...data1, id:docRef.id}})
+      dispatch({ type: ActionType.KID_POST_DATA, payload: { ...data1, id: docRef.id } })
 
    } catch (errore) {
 
    }
 }
 
-export const putKidData = (data1) => (dispatch) => {
+export const putKidData = (data1) => async (dispatch) => {
    try {
-      fetch('http://localhost:3004/kidEra/' + data1.id, {
-         method: "PUT",
-         headers: {
-            'Content-Type': 'application/json'
-         },
-         body: JSON.stringify(data1)
-      })
-         .then((response) => response.json())
-         .then((data) => dispatch({ type: ActionType.KID_PUT_DATA, payload: data.id }))
+      // fetch('http://localhost:3004/kidEra/' + data1.id, {
+      //    method: "PUT",
+      //    headers: {
+      //       'Content-Type': 'application/json'
+      //    },
+      //    body: JSON.stringify(data1)
+      // })
+      //    .then((response) => response.json())
+      //    .then((data) => dispatch({ type: ActionType.KID_PUT_DATA, payload: data.id }))
+
+      const kidRef = doc(db, "kid", data1.id);
+
+      // Set the "capital" field of the city 'DC'
+      await updateDoc(kidRef, data1)
+      dispatch({ type: ActionType.KID_PUT_DATA, payload: data1 })
+
    } catch (errore) {
 
    }
 }
 
-export const deletKidData = (id) => (dispatch) => {
+export const deletKidData = (id) => async (dispatch) => {
    try {
-      fetch(`http://localhost:3004/kidEra/${id}`, {
-         method: "DELETE",
-      })
+      // fetch(`http://localhost:3004/kidEra/${id}`, {
+      //    method: "DELETE",
+      // })
 
-         .then((response) => response.json())
+      //    .then((response) => response.json())
+      //    .then(() => dispatch({ type: ActionType.KID_DELETE_DATA, payload: id }))
+
+      // *************************************************************
+
+      await deleteDoc(doc(db, "kid", id))
          .then(() => dispatch({ type: ActionType.KID_DELETE_DATA, payload: id }))
+
+
    } catch (errore) {
 
    }

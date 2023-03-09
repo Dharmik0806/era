@@ -68,6 +68,7 @@ function KidEra(props) {
         { field: 'name', headerName: 'Name', width: 130 },
         { field: 'price', headerName: 'Price', width: 130 },
 
+        { field: 'img', headerName: 'img', width: 130 },
         {
             field: "Action", headerName: "Action", width: 130,
             renderCell: (params) => {
@@ -118,7 +119,10 @@ function KidEra(props) {
         // setDid();
 
         // setdOpen(false);
+
         dispatch(deletKidData(did))
+                setdOpen(false);
+
     }
 
     const handleUpdate = (upValue) => {

@@ -26,7 +26,7 @@ export const kidReducer = (state = initialState, action) => {
         case ActionType.KID_PUT_DATA:
 
             let finPutData = state.kid.map((d) => {
-                if (d.id === action.payload) {
+                if (d.id === action.payload.id) {
                     return action.payload
                 } else {
                     return d
