@@ -1,7 +1,9 @@
 import { Row } from "reactstrap";
 import { addMenData, fetchAllMenData, removeMenData, updateMenData } from "../../common/apis/men.api";
+import { collection, addDoc } from "firebase/firestore";
 
 import * as  ActionType from "../ActionType"
+import { db } from "../../fireBase/FireBase";
 
 
 export const getMenData = () => (dispatch) => {
@@ -15,21 +17,23 @@ export const getMenData = () => (dispatch) => {
         //         // .then((data) => console.log(data));
         //         .then((data) => dispatch({ type: ActionType.MEN_GET_DATA, payload: data }));
         // }, 2000)
-        dispatch(menLoading())
+        // dispatch(menLoading())
 
-        setTimeout(() => {
+        // setTimeout(() => {
 
-            fetchAllMenData()
-                // .then((response) => console.log(response.data))
-                .then((response) => dispatch({ type: ActionType.MEN_GET_DATA, payload: response.data }))
+        // fetchAllMenData()
+        //     .then((response) => console.log(response.data))
+        //     .then((response) => dispatch({ type: ActionType.MEN_GET_DATA, payload: response.data }))
 
-        }, 2000)
+        // }, 2000)
+
+        
     } catch (errore) {
 
     }
 }
 
-export const handlePostMenData = (data1) => (dispatch) => {
+export const handlePostMenData = (data1) => async (dispatch) => {
     console.log(data1);
     try {
         // fetch('http://localhost:3004/MenEra', {
@@ -42,11 +46,20 @@ export const handlePostMenData = (data1) => (dispatch) => {
         //     .then((response) => response.json())
         //     .then((data) => dispatch({ type: ActionType.MEN_POST_DATA, payload: data }))
 
-        addMenData(data1)
-            .then((response) => dispatch({ type: ActionType.MEN_POST_DATA, payload: response.data }))
+        // axios
+
+        // addMenData(data1)
+        //     .then((response) => dispatch({ type: ActionType.MEN_POST_DATA, payload: response.data }))
+
+        // firebase
+        const docRef = await addDoc(collection(db, "menData"), data1);
+        dispatch({ type: ActionType.MEN_POST_DATA, payload: {...data1 , id : docRef.id}})
+        // console.log("Document written with ID: ", docRef.id);
+                  
+
     } catch (errore) {
 
-    }
+}
 }
 
 export const handleDeletMenData = (id) => (dispatch) => {

@@ -80,6 +80,8 @@ function KidEra(props) {
                         <IconButton aria-label="delete" onClick={() => handleUpdate(params.row)}>
                             <EditIcon />
                         </IconButton>
+                       { console.log(params.row.img_pic)}
+                        <img src={params.row.img_pic} width={100} alt="asd" />
                     </>
                 )
             }
@@ -121,7 +123,7 @@ function KidEra(props) {
         // setdOpen(false);
 
         dispatch(deletKidData(did))
-                setdOpen(false);
+        setdOpen(false);
 
     }
 
@@ -165,7 +167,8 @@ function KidEra(props) {
     let schema = yup.object().shape({
         name: yup.string().required("Name is Required Feild."),
         price: yup.number().required("price is Required Feild."),
-        img: yup.number().required("Image no is Required Feild.")
+        img: yup.number().required("Image no is Required Feild."),
+        img_pic: yup.mixed().required("please upload file")
 
     })
 
@@ -173,7 +176,8 @@ function KidEra(props) {
         initialValues: {
             name: "",
             price: "",
-            img: ""
+            img: "",
+            img_pic: null
         },
 
         validationSchema: schema,
@@ -256,6 +260,22 @@ function KidEra(props) {
                                     onChange={e => { setFieldTouched('img'); handleChange(e) }}
                                 />
                                 {errors.img !== "" && touched.img ? <p>{errors.img}</p> : null}
+
+                                <TextField
+                                    type="file"
+                                    name="img_pic"
+                                    id="img_pic"
+                                    // onChange={e => {(e) => 
+
+                                    // }}
+
+                                    onChange={(e) =>
+                                        setFieldValue("img_pic", e.target.files[0])
+                                    }
+                                    onBlur={handleBlur}
+                                />
+                                {errors.img_pic !== "" && touched.img_pic ? <p>{errors.img_pic}</p> : null}
+
                             </DialogContent>
 
                             <DialogActions>
@@ -276,7 +296,7 @@ function KidEra(props) {
             {/* ++++++++++++++++++ TABLE GRID ++++++++++++++++ */}
 
             {
-                kidFinData.isLoder ? <Loading /> : kidFinData.error ? <Errore errMsg={kidFinData.error}  />:
+                kidFinData.isLoder ? <Loading /> : kidFinData.error ? <Errore errMsg={kidFinData.error} /> :
                     <div style={{ height: 400, width: '100%' }}>
                         <DataGrid
                             rows={kidFinData.kid}

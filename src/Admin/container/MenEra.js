@@ -53,10 +53,10 @@ function MenEra(props) {
 
 
     useEffect(() => {
-
+        console.log("OOOOOOOOOOOOOOOOOOOOOOOOOOO");
         dispatch(getMenData())
 
-    }, []);
+    }, [MenFinData.menData]);
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
@@ -87,14 +87,6 @@ function MenEra(props) {
     }
 
     const handleDelet = (did) => {
-        // console.log("delet id");
-
-        // let localData = JSON.parse(localStorage.getItem("men"));
-        // let dData = localData.filter((l) => l.id !== did);
-
-        // localStorage.setItem("men", JSON.stringify(dData));
-        // setMenData(dData);
-        // setDid();
 
         // setdOpen(false);
         console.log(did);
@@ -117,28 +109,6 @@ function MenEra(props) {
 
         dispatch(putMenData(values))
 
-        // let localData = JSON.parse(localStorage.getItem("men"));
-        // console.log(".. local data in update");
-        // console.log(localData);
-
-        // let updateDdata = localData.map((s) => {
-
-        //     if (s.id === NupData.id) {
-        //         // console.log("s id");
-        //         // console.log(s.id);
-        //         return NupData;
-        //     } else {
-        //         return s;
-        //     }
-        // })
-
-        // localStorage.setItem("men", JSON.stringify(updateDdata))
-
-        // console.log(localData);
-        // menData(updateDdata)
-        // setEid("");
-        // setValues();
-        // menObj.resetForm()
     }
 
     let schema = yup.object().shape({
@@ -255,7 +225,8 @@ function MenEra(props) {
             </div>
             {/* ++++++++++++++++++ TABLE GRID ++++++++++++++++ */}
             {
-                MenFinData.isLoder ? <Loading /> : <div style={{ height: 400, width: '100%' }}>
+                // MenFinData.isLoder ? <Loading /> : 
+                <div style={{ height: 400, width: '100%' }}>
                     <DataGrid
                         rows={MenFinData.menData}
                         columns={columns}

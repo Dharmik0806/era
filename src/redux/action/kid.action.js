@@ -1,7 +1,11 @@
 import { async } from "@firebase/util";
 import { addDoc, collection, doc, getDocs, deleteDoc, updateDoc } from "firebase/firestore"
+
 import { db } from "../../fireBase/FireBase"
 import * as ActionType from "../ActionType"
+// file upload
+import { getStorage, ref, uploadBytes,getDownloadURL } from "firebase/storage";
+
 
 export const getKidData = () => async (dispatch) => {
    try {
@@ -29,7 +33,7 @@ export const getKidData = () => async (dispatch) => {
       });
 
       dispatch({ type: ActionType.KID_GET_DATA, payload: data })
-      console.log(data);
+      // console.log(data);
    } catch (errore) {
 
    }
@@ -37,6 +41,23 @@ export const getKidData = () => async (dispatch) => {
 
 export const postKidData = (data1) => async (dispatch) => {
    try {
+
+      const storage = getStorage();
+      const storageRef = ref(storage, 'kid/' + data1.img_pic.name);
+
+      // 'file' comes from the Blob or File API
+      uploadBytes(storageRef, data1.img_pic).then((snapshot) => {
+         // console.log('Uploaded a blob or file!');
+         getDownloadURL(snapshot.ref)
+         console.log(snapshot.ref)
+            .then(async(url) => {
+               // Insert url into an <img> tag to "download"
+               // console.log(url);
+
+               const docRef = await addDoc(collection(db, "kid"), {...data1 , img_pic : url});
+               dispatch({ type: ActionType.KID_POST_DATA, payload: { ...data1, id: docRef.id , img_pic : url} })
+            })
+      });
       // fetch('http://localhost:3004/kidEra', {
       //    method: "POST",
       //    headers: {
