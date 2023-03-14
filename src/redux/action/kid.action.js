@@ -4,7 +4,7 @@ import { addDoc, collection, doc, getDocs, deleteDoc, updateDoc } from "firebase
 import { db } from "../../fireBase/FireBase"
 import * as ActionType from "../ActionType"
 // file upload
-import { getStorage, ref, uploadBytes,getDownloadURL } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 
 
 export const getKidData = () => async (dispatch) => {
@@ -43,19 +43,22 @@ export const postKidData = (data1) => async (dispatch) => {
    try {
 
       const storage = getStorage();
-      const storageRef = ref(storage, 'kid/' + data1.img_pic.name);
+
+      let imgId = Math.round(Math.random() * 1000);
+
+      const storageRef = ref(storage, 'kid/' + imgId);
 
       // 'file' comes from the Blob or File API
-      uploadBytes(storageRef, data1.img_pic).then((snapshot) => {
+      await uploadBytes(storageRef, data1.img_pic).then((snapshot) => {
          // console.log('Uploaded a blob or file!');
          getDownloadURL(snapshot.ref)
-         console.log(snapshot.ref)
-            .then(async(url) => {
+            // console.log(snapshot.ref)
+            .then(async (url) => {
                // Insert url into an <img> tag to "download"
                // console.log(url);
 
-               const docRef = await addDoc(collection(db, "kid"), {...data1 , img_pic : url});
-               dispatch({ type: ActionType.KID_POST_DATA, payload: { ...data1, id: docRef.id , img_pic : url} })
+               const docRef = await addDoc(collection(db, "kid"), { ...data1, img_pic: url, fileName: imgId });
+               dispatch({ type: ActionType.KID_POST_DATA, payload: { ...data1, id: docRef.id, img_pic: url, fileName: imgId } })
             })
       });
       // fetch('http://localhost:3004/kidEra', {
@@ -105,8 +108,20 @@ export const putKidData = (data1) => async (dispatch) => {
    }
 }
 
-export const deletKidData = (id) => async (dispatch) => {
+export const deletKidData = (data) => async (dispatch) => {
+   console.log(data);
    try {
+
+      const storage = getStorage();
+
+      // Create a reference to the file to delete
+      const desertRef = ref(storage, "kid/" + data.fileName);
+      console.log(desertRef);
+      await deleteObject(desertRef).then(async () => {     //delete store
+         await deleteDoc(doc(db, "kid", data.id))            //delete firebasestore
+            .then(dispatch({ type: ActionType.KID_DELETE_DATA, payload: data.id }))   //delete reducer
+      })
+      
       // fetch(`http://localhost:3004/kidEra/${id}`, {
       //    method: "DELETE",
       // })
@@ -116,8 +131,8 @@ export const deletKidData = (id) => async (dispatch) => {
 
       // *************************************************************
 
-      await deleteDoc(doc(db, "kid", id))
-         .then(() => dispatch({ type: ActionType.KID_DELETE_DATA, payload: id }))
+      // await deleteDoc(doc(db, "kid", id))
+      //    .then(() => dispatch({ type: ActionType.KID_DELETE_DATA, payload: id }))
 
 
    } catch (errore) {

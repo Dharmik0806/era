@@ -68,13 +68,15 @@ function KidEra(props) {
         { field: 'name', headerName: 'Name', width: 130 },
         { field: 'price', headerName: 'Price', width: 130 },
 
-        { field: 'img', headerName: 'img', width: 130 },
+        { field: 'img', headerName: 'img', width: 130 
+    
+        },
         {
             field: "Action", headerName: "Action", width: 130,
             renderCell: (params) => {
                 return (
                     <>
-                        <IconButton aria-label="delete" onClick={() => { setDid(params.row.id); handledClickOpen() }}>
+                        <IconButton aria-label="delete" onClick={() => { setDid(params.row); handledClickOpen() }}>
                             <DeleteIcon />
                         </IconButton>
                         <IconButton aria-label="delete" onClick={() => handleUpdate(params.row)}>
